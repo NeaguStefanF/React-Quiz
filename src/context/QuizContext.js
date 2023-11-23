@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
-
+import staticQuestions from '../data/questions.json';
 const QuizContext = createContext();
 
 const SECS_PER_QUESTION = 30;
@@ -82,10 +82,8 @@ function QuizProvider({ children }) {
   );
 
   useEffect(function () {
-    fetch('http://localhost:8000/questions')
-      .then((res) => res.json())
-      .then((data) => dispatch({ type: 'dataReceived', payload: data }))
-      .catch(() => dispatch({ type: 'dataFailed' }));
+    // Replace fetch call with the static questions
+    dispatch({ type: 'dataReceived', payload: staticQuestions.questions });
   }, []);
 
   return (
